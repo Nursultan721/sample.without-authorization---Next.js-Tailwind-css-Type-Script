@@ -32,7 +32,7 @@ export default function RootLayout({
         inter.variable
       )}
     >
-      <body className="flex flex-col ">
+      <body className="flex flex-col">
         <QueryProvider>
           <Header />
           {children}

@@ -1,8 +1,9 @@
+import {Banner} from '@/widgets'
 
 export default function Home() {
   return (
-    <div className="flex flex-col  ">
-        Home Page
+    <div className="flex flex-col ">
+        <Banner/>
     </div>
   );
 }
