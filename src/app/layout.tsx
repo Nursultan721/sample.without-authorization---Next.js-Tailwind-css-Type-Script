@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import {
-  Inter,
-} from "next/font/google";
+import { Inter } from "next/font/google";
 import { Header, Footer } from "@/widgets";
 import { cn } from "@/shared/api/utils";
 import { QueryProvider } from "@/shared/api/query-provider";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server"; 
 
 import "./globals.css";
 
@@ -15,15 +15,19 @@ export const metadata: Metadata = {
     icon: "#",
   },
 };
+
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
   variable: "--font-inter",
 });
-export default function RootLayout({
+
+export default async function RootLayout({ 
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const messages = await getMessages();
+
   return (
     <html
       lang="ru"
@@ -34,9 +38,11 @@ export default function RootLayout({
     >
       <body className="flex flex-col">
         <QueryProvider>
-          <Header />
-          {children}
-          <Footer />
+          <NextIntlClientProvider messages={messages}>
+            <Header />
+            {children}
+            <Footer />
+          </NextIntlClientProvider>
         </QueryProvider>
       </body>
     </html>
